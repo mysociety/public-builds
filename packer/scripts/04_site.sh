@@ -16,6 +16,7 @@ if [ x"$PACKER_SITE_NAME" = x"fixmystreet" ] ; then
   chown -R vagrant:vagrant /usr/share/fixmystreet/local
   cd ..
   rm -fr fixmystreet
+  apt-get purge -y --auto-remove make g++ libexpat1-dev libssl-dev zlib1g-dev postgresql-server-dev-all
 else
   echo "==> Skipping site-specific installation"
 fi

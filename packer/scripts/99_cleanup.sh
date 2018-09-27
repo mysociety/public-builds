@@ -1,6 +1,10 @@
 #!/usr/bin/env bash -eux
 
+# Build repo cleanup
+rm -fr /opt/mysociety/*
+
 # Package cleanup.
+apt-get -y purge --auto-remove build-essential module-assistant
 apt-get -y autoremove --purge
 apt-get -y clean
 

@@ -24,7 +24,7 @@
         " netcfg/get_domain=vagrant.internal",
         "<enter>"
       ],
-      "disk_size": 32768,
+      "disk_size": 10240,
       "vboxmanage": [
         [ "modifyvm", "{{.Name}}", "--memory", "512" ],
         [ "modifyvm", "{{.Name}}", "--cpus", "1" ]
