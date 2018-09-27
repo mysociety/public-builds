@@ -1,0 +1,70 @@
+{
+  "variables": {
+    "site_name": "",
+    "site_user": ""
+  },
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "vm_name": "{{ user `os_name` }}",
+      "guest_os_type": "{{ user `guest_os_type` }}",
+      "iso_url": "iso/{{ user `iso_file` }}",
+      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "http_directory": "http",
+      "boot_command": [
+        "<esc><wait>",
+        "install",
+        " auto",
+        " url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{ user `os_name` }}.cfg",
+        " debian-installer=en_GB",
+        " locale=en_GB",
+        " keymap=uk",
+        " netcfg/get_hostname={{.Name}}",
+        " netcfg/get_domain=vagrant.internal",
+        "<enter>"
+      ],
+      "disk_size": 10240,
+      "vboxmanage": [
+        [ "modifyvm", "{{.Name}}", "--memory", "512" ],
+        [ "modifyvm", "{{.Name}}", "--cpus", "1" ]
+      ],
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "headless": true,
+      "post_shutdown_delay": "1m",
+      "shutdown_command": "echo 'vagrant'|sudo -S shutdown -h now",
+      "ssh_password": "vagrant",
+      "ssh_username": "vagrant",
+      "ssh_wait_timeout": "10000s",
+      "virtualbox_version_file": ".vbox_version"
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "output": "boxes/{{ user `os_name` }}-base-{{isotime \"2006-01-02\"}}.box",
+      "compression_level": 9
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "environment_vars": [
+        "PACKER_OS_ID={{ user `os_id` }}",
+        "PACKER_OS_NAME={{ user `os_name` }}",
+        "PACKER_SITE_NAME={{ user `site_name` }}",
+        "DEBIAN_FRONTEND=noninteractive"
+      ],
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+      "expect_disconnect": true,
+      "scripts": [
+        "scripts/00_update.sh",
+        "scripts/01_vagrant.sh",
+        "scripts/02_virtualbox.sh",
+        "scripts/03_base.sh",
+        "scripts/04_site.sh",
+        "scripts/99_cleanup.sh"
+      ]
+    }
+  ]
+}
