@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+#
+# bootstrap: do as much of the work as possible to configure dependencies
+#
+
+# Move to the top level of the project
+cd "$(dirname "$0")/.."
+
+echo "==> Checking for required software..."
+PACKER_PATH=$(which packer)
+if [ -z "$PACKER_PATH" ] ; then
+  echo "==> Packer not found in your path. You'll need to install this."
+else
+  echo "==> Packer found at $PACKER_PATH"
+fi
+
+DOCKER_PATH=$(which docker)
+if [ -z "$DOCKER_PATH" ] ; then
+  echo "==> Docker not found in your path. You'll need to install this."
+else
+  echo "==> Docker found at $DOCKER_PATH"
+fi
+
+# Download a reasonably current Debian installer ISO
+if [ ! -e packer/iso/debian-9.5.0-amd64-netinst.iso ]; then
+  echo "==> Downloading Debian Stretch ISO..."
+  cd packer/iso
+  curl -sOL https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-9.5.0-amd64-netinst.iso
+  cd ../..
+else
+  echo "==> Debian Strech ISO available."
+fi
+
+
+
