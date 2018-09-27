@@ -1,0 +1,6 @@
+packer/packer_cache/
+packer/output-virtualbox-iso/
+packer/boxes/*
+!packer/boxes/README.md
+packer/iso/*
+!packer/iso/README.md
