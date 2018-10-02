@@ -76,3 +76,38 @@ loaded for fresh installations.
 * If you wish to use memcached, you will need to provide a suitable endpoint accessible
 from the instances, then configure then with the endpoint address.
 * You will need to provide a reverse proxy.
+
+## Changing the version of FixMyStreet
+
+By default, the build process for FixMyStreet images will use the most recent
+[tagged release](https://github.com/mysociety/fixmystreet/releases). It is
+possible to control this by injecting certain environment variables into the build.
+
+The following variables can be used to control various aspects of the build:
+
+* `VERSION_OVERRIDE` will set the branch, tag or commit checked out in the final
+image (default: latest tagged release);
+* `BRANCH_OVERRIDE` will set the branch used for the initial checkout that loads the
+install script (default: `master`);
+* `REPOSITORY_URL_OVERRIDE` will set the URL of the Git repository used (default: `git://github.com/mysociety/fixmystreet.git`).
+
+These variables can be set by adding some `environment_vars` in the `shell`
+provisioner, for example:
+```
+...
+  "provisioners": [
+    {
+      "type": "shell",
+      "environment_vars": [
+        "VERSION_OVERRIDE=f935df04a"
+      ],
+      "inline": [
+        "curl -L -O https://raw.github.com/mysociety/commonlib/master/bin/install-site.sh",
+        "sudo -E sh install-site.sh {{user `install_args`}} {{user `site_name`}} {{user `site_user`}} 2>&1"
+      ]
+    }
+  ]
+...
+```
+See [the Packer documentation](https://www.packer.io/docs/provisioners/shell.html#environment_vars)
+for more details on the `environment_vars` option.
