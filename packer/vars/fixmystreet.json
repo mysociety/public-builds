@@ -1,4 +1,5 @@
 {
-  "site_name": "fixmystreet",
-  "site_user": "fms"
+  "site_name":    "fixmystreet",
+  "site_user":    "fms",
+  "install_args": "--default --systemd"
 }
