@@ -37,9 +37,16 @@ For example:
       ]
     },
     {
-      "destination": "/var/www/fixmystreet/fixmystreet/conf/general.yml",
-      "source": "./general.yml",
-      "type": "file"
+      "type": "file",
+      "source": "./files/general.yml",
+      "destination": "/tmp/general.yml"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "sudo mv /tmp/general.yml /var/www/fixmystreet/fixmystreet/conf/general.yml",
+        "sudo chown {{user `site_user`}}:{{user `site_user`}} /var/www/fixmystreet/fixmystreet/conf/general.yml"
+      ]
     }
   ]
 }
