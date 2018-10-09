@@ -64,6 +64,35 @@ You could store a copy of our configuration file in a secure location and have
 a script copy this into the right place and ensure the permissions were correct
 when you launch an instance.
 
+## Adding your own cobrand
+
+If you want to build a custom AMI with [your own cobrand](https://fixmystreet.org/customising/)
+baked in, we've provided a variation on our standard builder to cater for this.
+
+First, create a directory under `files/` called `cobrand` and place your cobrand
+files into it.
+
+For example, if you maintain your cobrand in its own repository you could clone
+a working copy as this directory.
+
+Regardless of how you populate this, it should consist of something like the
+following (all items optional):
+
+```
+files/cobrand/
+    templates/web/(cobrand)/
+    templates/email/(cobrand)/
+    perllib/FixMyStreet/Cobrand/(CoBrand.pm)
+    web/cobrands/(cobrand)/
+```
+
+Next, create a suitable configuration file and place this at `files/general.yml.cobrand`.
+
+Finally you should be able to run `make fixmystreet-ami-cobrand` and the cobrand
+files will be included and activated during the build process. This target uses
+the `amazon_fms_cobrand.json` builder definition which will build a private AMI
+by default. It will be named `fixmystreet-installation-full-cobrand-YYYY-MM-DD`.
+
 ## Building a slim AMI
 
 **This process is under development and subject to change.**
