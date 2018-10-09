@@ -1,22 +1,16 @@
 #!/usr/bin/env bash -eux
 
 if [ x"$PACKER_SITE_NAME" = x"fixmystreet" ] ; then
-  echo "==> Installing FixMyStreet Perl Modules into /usr/share/fixmystreet/local..."
-  cd /opt/mysociety
+  echo "==> Doing initial site install..."
+  cd /home/vagrant
   git clone --recursive git://github.com/mysociety/fixmystreet.git
-  source /opt/mysociety/commonlib/shlib/installfns
-  CONF_DIRECTORY=/opt/mysociety/fixmystreet/conf
-  DISTRIBUTION="$(lsb_release -i -s  | tr A-Z a-z)"
-  DISTVERSION="$(lsb_release -c -s)"
-  install_website_packages
   mkdir -p /usr/share/fixmystreet/local
-  cd /opt/mysociety/fixmystreet
-  ln -sf /usr/share/fixmystreet/local local
-  bin/install_perl_modules
+  ln -sf /usr/share/fixmystreet/local /home/vagrant/fixmystreet/local
   chown -R vagrant:vagrant /usr/share/fixmystreet/local
-  cd ..
+  wget -O install-site.sh --no-verbose https://github.com/mysociety/commonlib/raw/master/bin/install-site.sh
+  sh install-site.sh --dev fixmystreet vagrant 127.0.0.1.xip.io
+  chown -R vagrant:vagrant /usr/share/fixmystreet/local
   rm -fr fixmystreet
-  apt-get purge -y --auto-remove make g++ libexpat1-dev libssl-dev zlib1g-dev postgresql-server-dev-all
 else
   echo "==> Skipping site-specific installation"
 fi
