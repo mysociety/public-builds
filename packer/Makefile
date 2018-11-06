@@ -20,7 +20,7 @@ fixmystreet-ami:
 
 fixmystreet-ami-slim:
 	@echo "Building App-only FixMyStreet AMI..."
-	packer build -var-file vars/fixmystreet.json -var 'install_args=--docker' -var 'install_type=slim' builders/amazon.json
+	packer build -var-file vars/fixmystreet.json -var 'install_args=--systemd --slim' -var 'install_type=slim' builders/amazon.json
 
 fixmystreet-ami-cobrand:
 	@test -d files/cobrand || ( echo "Please make sure you've got a cobrand at files/cobrand/" && exit 1 )
