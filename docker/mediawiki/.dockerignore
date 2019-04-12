@@ -1,2 +1,0 @@
-# Exclude Git things from extensions cloned as submodules.
-extensions/*/.git*

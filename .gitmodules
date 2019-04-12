@@ -1,6 +1,0 @@
-[submodule "docker/mediawiki/extensions/AWS"]
-	path = docker/mediawiki/extensions/AWS
-	url = https://github.com/edwardspec/mediawiki-aws-s3.git
-[submodule "docker/mediawiki/extensions/Auth_remoteuser"]
-	path = docker/mediawiki/extensions/Auth_remoteuser
-	url = https://github.com/wikimedia/mediawiki-extensions-Auth_remoteuser.git
