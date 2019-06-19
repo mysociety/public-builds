@@ -20,6 +20,7 @@ RUN set -x; \
 # Pass environment to PHP-FPM
     sed -i -e 's/^;clear_env/clear_env/' /etc/php/7.0/fpm/pool.d/www.conf
 
+COPY security.conf /etc/apache2/conf-available/security.conf
 COPY ./supervisord /etc/supervisor/conf.d
 
 EXPOSE 80
