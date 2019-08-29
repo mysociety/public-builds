@@ -10,7 +10,8 @@ IMAGE  := $(shell basename `pwd`)
 
 stretch:
 	@echo Building mysocietyorg/${IMAGE}:${TIME}.${COMMIT}
-	docker build -f Dockerfile.stretch -t mysocietyorg/${IMAGE}:${TIME}.${COMMIT} .
+	docker pull debian:stretch-slim
+	docker build --no-cache -f Dockerfile.stretch -t mysocietyorg/${IMAGE}:${TIME}.${COMMIT} .
 	docker tag mysocietyorg/${IMAGE}:${TIME}.${COMMIT} mysocietyorg/${IMAGE}:latest
 	docker tag mysocietyorg/${IMAGE}:${TIME}.${COMMIT} mysocietyorg/${IMAGE}:stretch
 
