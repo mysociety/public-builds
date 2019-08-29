@@ -10,7 +10,8 @@ IMAGE  := $(shell basename `pwd`)
 
 build:
 	@echo Building mysocietyorg/${IMAGE}:${TIME}.${COMMIT}
-	docker build -t mysocietyorg/${IMAGE}:${TIME}.${COMMIT} .
+	docker pull mysocietyorg/debian:stretch
+	docker build --no-cache -t mysocietyorg/${IMAGE}:${TIME}.${COMMIT} .
 	docker tag mysocietyorg/${IMAGE}:${TIME}.${COMMIT} mysocietyorg/${IMAGE}:latest
 
 push:
