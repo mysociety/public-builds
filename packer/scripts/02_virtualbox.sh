@@ -1,7 +1,10 @@
 #!/usr/bin/env bash -eux
 
-echo "==> Installing prerequites."
+
+echo "==> Installing prerequisites."
+sleep 10
 apt-get -y install build-essential module-assistant linux-headers-amd64
+[ "$?" == "0" ] || { echo "==> Something went wrong installing the pre-reqs. Exiting." ; exit 1 ; }
 
 echo "==> Installing Guest Additions."
 mkdir /tmp/virtualbox
