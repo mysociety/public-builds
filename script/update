@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#
+# update: run after a git pull
+#
+
+cd "$(dirname "$0")/.."
+
+script/bootstrap
