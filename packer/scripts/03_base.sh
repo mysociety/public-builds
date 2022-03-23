@@ -5,7 +5,7 @@ echo "==> Cloning mySociety commonlib repository"
 mkdir -p /opt/mysociety
 apt-get install -qq -y git >/dev/null
 cd /opt/mysociety
-git clone git://github.com/mysociety/commonlib.git
+git clone https://github.com/mysociety/commonlib.git
 
 echo "==> Installing core packages"
 source /opt/mysociety/commonlib/shlib/installfns

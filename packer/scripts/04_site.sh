@@ -3,7 +3,7 @@
 if [ x"$PACKER_SITE_NAME" = x"fixmystreet" ] ; then
   echo "==> Doing initial site install..."
   cd /home/vagrant
-  git clone --recursive git://github.com/mysociety/fixmystreet.git
+  git clone --recursive https://github.com/mysociety/fixmystreet.git
   mkdir -p /usr/share/fixmystreet/local
   ln -sf /usr/share/fixmystreet/local /home/vagrant/fixmystreet/local
   chown -R vagrant:vagrant /usr/share/fixmystreet/local

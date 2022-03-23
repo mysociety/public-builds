@@ -125,7 +125,7 @@ The following variables can be used to control various aspects of the build:
 image (default: latest tagged release);
 * `BRANCH_OVERRIDE` will set the branch used for the initial checkout that loads the
 install script (default: `master`);
-* `REPOSITORY_URL_OVERRIDE` will set the URL of the Git repository used (default: `git://github.com/mysociety/fixmystreet.git`).
+* `REPOSITORY_URL_OVERRIDE` will set the URL of the Git repository used (default: `https://github.com/mysociety/fixmystreet.git`).
 
 These variables can be set by adding some `environment_vars` in the `shell`
 provisioner, for example:
