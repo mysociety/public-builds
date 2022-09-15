@@ -1,5 +1,5 @@
-FROM debian:stretch-slim
-MAINTAINER sysadmin@mysociety.org
+FROM debian:bullseye-slim
+LABEL maintainer="sysadmin@mysociety.org"
 
 # Core packages.
 ENV DEBIAN_FRONTEND=noninteractive
@@ -10,6 +10,7 @@ RUN apt-get update && apt-get dist-upgrade -y && apt-get install -y \
         dnsutils \
         git \
         gpg \
+        gpg-agent \
         locales \
         lockfile-progs \
         lsb-release \
@@ -23,6 +24,6 @@ ENV LANG=en_GB.utf8
 ENV LC_ALL=en_GB.utf8
 
 # Add mySociety and Backports APT sources.
-RUN echo 'deb http://debian.mysociety.org stretch main' > /etc/apt/sources.list.d/mysociety.list \
-        && echo 'deb http://ftp.debian.org/debian stretch-backports main' > /etc/apt/sources.list.d/backports.list \
-        && curl http://debian.mysociety.org/debian.mysociety.org.gpg.key | apt-key add -
+RUN echo 'deb http://debian.mysociety.org bullseye main' > /etc/apt/sources.list.d/mysociety.list \
+        && echo 'deb http://ftp.debian.org/debian bullseye-backports main' > /etc/apt/sources.list.d/backports.list \
+        && curl -sSL http://debian.mysociety.org/debian.mysociety.org.gpg.key | apt-key add -
