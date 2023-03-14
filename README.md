@@ -21,6 +21,20 @@ in the project repository rather than here. The Docker builds in this
 repository will generally be dependencies and shared containers used in
 our example Docker Compose environments.
 
+Note that there is generally be a `Makefile` in each build and these now
+assume that support for running multi-arch builds using `buildx`.
+
+You'll need to be running a builder that supports parallel builds for the
+relevant architectures, so something like this should get you up and
+running, but also see the [documentation](https://docs.docker.com/build/building/multi-platform/).
+
+```
+docker buildx create --platform linux/arm64,linux/amd64,linux/arm/v7 \
+> --name mybuilder
+
+docker buildx use mybuilder
+```
+
 ### Packer
 
 We're using [Packer](https://www.packer.io/) to build AMIs and Vagrant boxes.
