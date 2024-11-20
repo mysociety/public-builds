@@ -25,13 +25,24 @@
       "secret_key":    "{{user `aws_secret_key`}}",
       "ssh_username":  "admin",
       "type":          "amazon-ebs",
+      "vpc_filter": {
+        "filters": {
+          "tag:Class": "build"
+        }
+      },
+      "subnet_filter": {
+        "filters": {
+          "tag:Class": "build"
+        },
+        "random": true
+      },
       "source_ami_filter": {
         "filters": {
           "virtualization-type": "hvm",
-          "name":                "debian-stretch-hvm-x86_64-gp2-*",
+          "name":                "debian-11-amd64-*",
           "root-device-type":    "ebs"
         },
-        "owners":      [ "379101102735" ],
+        "owners":      [ "136693071363" ],
         "most_recent": true
       }
     }
