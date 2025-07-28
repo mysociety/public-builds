@@ -25,5 +25,5 @@ ENV LC_ALL=en_GB.utf8
 
 # Add mySociety and Backports APT sources.
 RUN echo 'deb http://debian.mysociety.org bullseye main' > /etc/apt/sources.list.d/mysociety.list \
-        && echo 'deb http://ftp.debian.org/debian bullseye-backports main' > /etc/apt/sources.list.d/backports.list \
+        && echo 'deb http://archive.debian.org/debian bullseye-backports main' > /etc/apt/sources.list.d/backports.list \
         && curl -sSL http://debian.mysociety.org/debian.mysociety.org.gpg.key | apt-key add -
