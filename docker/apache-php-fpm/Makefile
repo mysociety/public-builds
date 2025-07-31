@@ -5,7 +5,7 @@
 COMMIT := $(shell git log -1 --pretty=%h)
 TIME   := $(shell date +%Y%m%d%H%M%S)
 IMAGE  := $(shell basename `pwd`)
-DISTRO = bullseye
+DISTRO = bookworm
 
 .PHONEY: build
 
