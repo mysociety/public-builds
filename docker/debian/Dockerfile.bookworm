@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM debian:bookworm-slim
 LABEL maintainer="sysadmin@mysociety.org"
 
 # Core packages.
@@ -24,6 +24,7 @@ ENV LANG=en_GB.utf8
 ENV LC_ALL=en_GB.utf8
 
 # Add mySociety and Backports APT sources.
-RUN echo 'deb http://debian.mysociety.org buster main' > /etc/apt/sources.list.d/mysociety.list \
-        && echo 'deb http://ftp.debian.org/debian buster-backports main' > /etc/apt/sources.list.d/backports.list \
-        && curl -sSL http://debian.mysociety.org/debian.mysociety.org.gpg.key | apt-key add -
+RUN echo 'deb [signed-by=/etc/apt/keyrings/mysociety.asc] http://debian.mysociety.org bookworm main' > \
+      /etc/apt/sources.list.d/mysociety.list \
+        && echo 'deb http://deb.debian.org/debian bookworm-backports main' > /etc/apt/sources.list.d/backports.list \
+        && curl -sSL http://debian.mysociety.org/debian.mysociety.org.gpg.key > /etc/apt/keyrings/mysociety.asc
