@@ -1,0 +1,30 @@
+FROM debian:trixie-slim
+LABEL maintainer="sysadmin@mysociety.org"
+
+# Core packages.
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get dist-upgrade -y && apt-get install -y \
+        apt-utils \
+        ca-certificates \
+        curl \
+        dnsutils \
+        git \
+        gpg \
+        gpg-agent \
+        locales \
+        lockfile-progs \
+        lsb-release \
+      --no-install-recommends && rm -r /var/lib/apt/lists/*
+
+# Our preferred locale. If you want to subsequentially add locales, append
+# then to the /etc/locale.gen and re-run locale-gen.
+RUN echo 'en_GB.UTF-8 UTF-8' > /etc/locale.gen \
+        && /usr/sbin/locale-gen
+ENV LANG=en_GB.utf8
+ENV LC_ALL=en_GB.utf8
+
+# Add mySociety and Backports APT sources.
+RUN echo 'deb [signed-by=/etc/apt/keyrings/mysociety.asc] http://debian.mysociety.org trixie main' > \
+      /etc/apt/sources.list.d/mysociety.list \
+        && echo 'deb [signed-by=/usr/share/keyrings/debian-archive-keyring.gpg] http://deb.debian.org/debian trixie-backports main' > /etc/apt/sources.list.d/backports.list \
+        && curl -sSL http://debian.mysociety.org/debian.mysociety.org.gpg.key > /etc/apt/keyrings/mysociety.asc
